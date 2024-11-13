@@ -1,0 +1,58 @@
+GET http://localhost:3004/
+
+###
+POST http://localhost:3004/signup/ 
+Content-Type: application/json
+
+{
+    "username":"rahul",
+    "email":"rahul@test.com",
+    "password":"rahul@2021"
+}
+
+###
+POST http://localhost:3004/login 
+Content-Type: application/json
+
+{
+    "username":"rahul",
+    "password":"rahul@2021"
+}
+
+###
+POST http://localhost:3004/task/
+Content-Type: application/json 
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwiaWF0IjoxNzMxNDc3ODUyfQ.z4-AJ0u7buoMtEviA20i5dbKwDpSW-bppz4pQh_QNnI
+
+{
+    "task":"Learn React Hooks",
+    "status":"TO DO"
+}
+
+###
+
+GET http://localhost:3004/task 
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwiaWF0IjoxNzMxNDc3ODUyfQ.z4-AJ0u7buoMtEviA20i5dbKwDpSW-bppz4pQh_QNnI
+
+###
+GET http://localhost:3004/task/5/
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwiaWF0IjoxNzMxNDc3ODUyfQ.z4-AJ0u7buoMtEviA20i5dbKwDpSW-bppz4pQh_QNnI
+
+###
+PUT http://localhost:3004/task/5/
+Content-Type:application/json
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwiaWF0IjoxNzMxNDc3ODUyfQ.z4-AJ0u7buoMtEviA20i5dbKwDpSW-bppz4pQh_QNnI
+
+{
+    "task":"Reading Paper",
+    "status":"DONE"
+}
+
+###
+DELETE http://localhost:3004/task/9/
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwiaWF0IjoxNzMxNDc3ODUyfQ.z4-AJ0u7buoMtEviA20i5dbKwDpSW-bppz4pQh_QNnI
+
+
+###
+GET http://localhost:3004/profile/
+Authorization:Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InJhaHVsIiwiaWF0IjoxNzMxNDc3ODUyfQ.z4-AJ0u7buoMtEviA20i5dbKwDpSW-bppz4pQh_QNnI
