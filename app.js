@@ -115,14 +115,14 @@ const authenticateToken = (request, response, next) => {
 
 //ADD task 
 
-app.post("/task",authenticateToken,async(request,response) => {
+app.post("/task",async(request,response) => {
     const {task,status} = request.body;
     const checkTaskName = `SELECT * FROM taskList WHERE task='${task}';`;
     if(checkTaskName === undefined){
         response.status(400);
         response.send("Task already exist")
     }
-    const addTaskQuery = `INSERT INTO taskList(task,status) VALUES('${task}','${status}');`;
+    const addTaskQuery = `INSERT INTO taskList(task,status) VALUES('${task}','${status.toUpperCase()}');`;
     const addTaskQueryResponse = await database.run(addTaskQuery);
     const taskId = addTaskQueryResponse.lastID;
     response.send(`Task added Successfully with ID: ${taskId}`);
@@ -130,7 +130,7 @@ app.post("/task",authenticateToken,async(request,response) => {
 
 //GET all tasklist 
 
-app.get("/task",authenticateToken,async(request,response) => {
+app.get("/task",async(request,response) => {
     const getAllTasks = `SELECT * FROM taskList`;
     const allTasksResponse = await database.all(getAllTasks);
     response.send(allTasksResponse)
@@ -138,7 +138,7 @@ app.get("/task",authenticateToken,async(request,response) => {
 
 //UPDATE specific task 
 
-app.put("/task/:taskId",authenticateToken,async(request,response) => {
+app.put("/task/:taskId",async(request,response) => {
     const {taskId} = request.params;
     const {task,status} = request.body;
     
@@ -154,9 +154,10 @@ app.put("/task/:taskId",authenticateToken,async(request,response) => {
     response.send("Task updated Successfully")
 })
 
-app.get("/task/:taskId",authenticateToken,async(request,response) => {
+//SPECIFIC task
+
+app.get("/single_task/:taskId",async(request,response) => {
     const {taskId} = request.params;
-    console.log(taskId)
     const getAllTasks = `SELECT * FROM taskList WHERE id=${taskId}`;
     const allTasksResponse = await database.all(getAllTasks);
     response.send(allTasksResponse)
@@ -164,7 +165,7 @@ app.get("/task/:taskId",authenticateToken,async(request,response) => {
 
 //delete Specific Task 
 
-app.delete("/task/:taskId",authenticateToken,async(request,response) => {
+app.delete("/task/:taskId",async(request,response) => {
     const {taskId} = request.params;
     const getTaskWithId = `SELECT * FROM taskList WHERE id=${taskId};`;
     const getTaskWithIdResponse = await database.get(getTaskWithId);
@@ -178,12 +179,10 @@ app.delete("/task/:taskId",authenticateToken,async(request,response) => {
     }
 })
 
-
 //User Profile
 
 app.get("/profile/", authenticateToken, async (request, response) => {
   let { username } = request;
-  console.log(username)
   const selectUserQuery = `SELECT * FROM user WHERE username='${username}'`;
   const userDetails =await database.get(selectUserQuery);
   response.send(userDetails);
