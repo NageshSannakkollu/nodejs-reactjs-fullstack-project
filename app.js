@@ -79,14 +79,14 @@ app.post("/login/", async (request, response) => {
     );
     if (checkIsPasswordMatched === true) {
       const payload = { username: username };
-      const jwtToken = await jwt.sign(payload, "My_Secret_Key");
+      const jwtToken =jwt.sign(payload, "My_Secret_Key");
       response.send({ jwtToken });
     } else {
       response.status(400);
       response.send("Invalid password");
     }
   }
-});
+}); 
 
 //authentication
 
